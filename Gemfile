@@ -48,7 +48,7 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
-# 認証
+# 認証に使用
 gem 'sorcery'
 
 group :development, :test do
