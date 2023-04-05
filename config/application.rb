@@ -40,5 +40,7 @@ module InstaCloneVer7
 
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :local
+    # 国際化のため追記
+    config.i18n.default_locale = :ja
   end
 end

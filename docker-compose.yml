@@ -17,6 +17,7 @@ services:
       SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub
   db:
     image: mysql:5.7.33
+    platform: linux/amd64
     environment:
       MYSQL_ROOT_PASSWORD: "mysql"
     ports:
