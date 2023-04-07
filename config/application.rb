@@ -33,5 +33,15 @@ module InstaCloneVer7
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.generators do |g|
+      g.helper false
+    end
+
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
+    # 国際化のため追記
+    config.i18n.default_locale = :ja
   end
 end
