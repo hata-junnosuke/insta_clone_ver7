@@ -85,17 +85,17 @@ RSpec.describe '投稿', type: :system do
     describe 'コメントでの検索' do
       let!(:post_a) do
         post = create(:post)
-        create(:comment, post: post, body: 'GoodMorning')
+        create(:comment, post: post, body: 'GoodMorning', user: user)
         post
       end
       let!(:post_b) do
         post = create(:post)
-        create(:comment, post: post, body: 'Hello')
+        create(:comment, post: post, body: 'Hello', user: user)
         post
       end
       let!(:post_c) do
         post = create(:post)
-        create(:comment, post: post, body: 'GoodEvening')
+        create(:comment, post: post, body: 'GoodEvening', user: user)
         post
       end
       before do
