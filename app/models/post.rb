@@ -24,4 +24,12 @@ class Post < ApplicationRecord
   validates :body, presence: true
   validates :images, presence: true,
                      blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'], size_range: 1..(5.megabytes) }
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["body", "created_at", "id", "updated_at", "user_id"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["comments", "images_attachments", "images_blobs", "user"]
+  end
 end
