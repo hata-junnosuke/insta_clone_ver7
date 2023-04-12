@@ -71,4 +71,8 @@ class User < ApplicationRecord
   def feed
     Post.where(user_id: following_ids << id)
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[created_at crypted_password email id salt updated_at username]
+  end
 end
