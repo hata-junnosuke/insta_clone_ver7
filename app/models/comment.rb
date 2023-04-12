@@ -26,6 +26,6 @@ class Comment < ApplicationRecord
   validates :body, presence: true, length: { maximum: 1000 }
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[body created_at id post_id updated_at ]
+    %w[body created_at id post_id updated_at]
   end
 end
