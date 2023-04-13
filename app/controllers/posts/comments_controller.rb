@@ -14,6 +14,7 @@ class Posts::CommentsController < ApplicationController
     return unless @comment.save
 
     create_notifications_about_comment_to_own_post(@comment)
+    UserMailer.with(user_from: current_user, user_to: @comment.post.user, comment: @comment).comment_post.deliver_later
   end
 
   def update
