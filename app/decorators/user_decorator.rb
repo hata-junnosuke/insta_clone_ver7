@@ -24,5 +24,4 @@ class UserDecorator < ApplicationDecorator
     image = command ? avatar.variant(command).processed : avatar
     h.rails_storage_proxy_url(image, only_path: true)
   end
-
 end
