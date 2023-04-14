@@ -6,7 +6,13 @@ class Posts::LikesController < ApplicationController
     return unless current_user.like(@post)
 
     create_notifications_about_like(@post)
-    UserMailer.with(user_from: current_user, user_to: @post.user, post: @post).like_post.deliver_later
+    return unless @post.user.accepted_notification?(:on_liked)
+
+    UserMailer.with(
+      user_from: current_user,
+      user_to: @post.user,
+      post: @post
+    ).like_post.deliver_later
   end
 
   def destroy
