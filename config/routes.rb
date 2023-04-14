@@ -14,4 +14,20 @@ Rails.application.routes.draw do
   resources :users, only: %i[index show] do
     resource :relationship, only: %i[create destroy], module: :users
   end
+
+  resources :notifications, only: [] do
+    resource :read, only: %i[create], module: :notifications
+  end
+
+  namespace :mypage do
+    root to: 'accounts#edit'
+    resource :account, only: %i[edit update]
+    resources :notifications, only: %i[index]
+  end
+
+  if Rails.env.development?
+    require 'sidekiq/web'
+    mount LetterOpenerWeb::Engine, at: '/letter_opener'
+    mount Sidekiq::Web, at: '/sidekiq'
+  end
 end

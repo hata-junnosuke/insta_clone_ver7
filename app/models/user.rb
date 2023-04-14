@@ -31,12 +31,16 @@ class User < ApplicationRecord
                                    inverse_of: :follower
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
+  has_many :user_notifications, dependent: :destroy
+  has_many :notifications, through: :user_notifications
+  has_one_attached :avatar
 
   validates :username, uniqueness: true, presence: true
   validates :email, uniqueness: true, presence: true
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
+  validates :avatar, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'], size_range: 1..(5.megabytes) }
 
   scope :recent, ->(count = 5) { order(created_at: :desc).limit(count) }
 
@@ -46,6 +50,8 @@ class User < ApplicationRecord
 
   def like(post)
     like_posts << post
+  rescue ActiveRecord::RecordInvalid
+    false
   end
 
   def unlike(post)
@@ -58,6 +64,8 @@ class User < ApplicationRecord
 
   def follow(other_user)
     following << other_user
+  rescue ActiveRecord::RecordInvalid
+    false
   end
 
   def unfollow(other_user)
