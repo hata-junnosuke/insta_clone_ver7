@@ -1,7 +1,7 @@
 module ApplicationHelper
   include Pagy::Frontend
 
-  def default_meta_tags
+  def default_meta_tags # rubocop:disable all
     {
       site: Settings.meta.site,
       reverse: true,
